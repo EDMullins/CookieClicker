@@ -36,33 +36,50 @@
 }
 
 .bi-list {
-    font-size: 2rem;
+    font-size: 3rem;
+    font-weight: bold;
 }
 
 .bi-arrow-left-short {
     font-size: 4rem;
+    cursor: pointer;
 }
 
 .bi-house-fill {
     font-size: 3rem;
+    cursor: pointer;
 }
 
-.bi-hand-index-thumb-fill {
+.bi-hand-index-thumb-fill, .bi-clock-fill, .bi-lightning-charge-fill{
     font-size: 3rem;
 }
 
-.hidden {
-    transform: translateX(100%);
-    transition: all 100ms ease-in-out;
+#main-menu-icon {
+    cursor: pointer;
 }
 
-.active {
+#main-menu {
+    transform: translateX(100%);
+    transition: all 100ms ease-in-out;
+    border-left: 8px solid var(--colorBorder);
+}
+#main-menu.active {
     transform: translateX(0);
 }
 
 .upg-btn {
     background-color: var(--colorUpgbtn);
     width: 7rem;
-    height: 5rem;
+    height: 100%;
     font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.upgrade {
+    transform: skew(15deg);
+    width: 100%;
+}
+
+.upgrade div {
+    transform: skew(-15deg);
 }

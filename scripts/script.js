@@ -13,11 +13,12 @@ $(document).ready(function() {
 
     // EL for menu icon
     $('#main-menu-icon').on('click', () => {
-        $('#main-menu').addClass('active');
+        $('#main-menu').toggleClass('active');
+        console.log("btn clicked");
     });
     //EL for menu back btn
     $('#main-menu-back').on('click', () => {
-        $('#main-menu').removeClass('active');
+        $('#main-menu').toggleClass('active');
     });
 
     //EL for upgrade purchase
