@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+:root {
+    --colorBg: #FAF3E0;
+    --colorSec: #E07A5F;
+    --colorUpgBg: #F6A7D9;
+    --colorUpgbtn: #FFA825;
+    --colorTxt: #2D2D2D;
+    --colorBorder: #A3391C;
+}
+
+.bg-light {
+    background-color: var(--colorBg) !important;
+}
+
+.bg-sec {
+    background-color: var(--colorSec);
+}
+
+.upg-bg-color {
+    background-color: var(--colorUpgBg);
+}
+
+.upg-btn-color {
+    background-color: var(--colorUpgbtn);
+}
+
+* {
+    color: var(--colorTxt);
+    font-family: "Quicksand", sans-serif;
+    font-weight: bold !important;
+}
+
+#fortune-button {
+    height: 25rem;
+    width: 25rem;
+    padding: 1rem;
+    border-radius: 50%;
+    transition: background-color 100ms ease-in-out;
+}
+
+.bi-arrow-left-short {
+    font-size: 4rem;
+}
+
+.bi-house-fill {
+    font-size: 3rem;
+}
