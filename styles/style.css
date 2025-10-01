@@ -20,14 +20,11 @@
     background-color: var(--colorUpgBg);
 }
 
-.upg-btn-color {
-    background-color: var(--colorUpgbtn);
-}
-
 * {
     color: var(--colorTxt);
     font-family: "Quicksand", sans-serif;
     font-weight: bold !important;
+    overflow: hidden;
 }
 
 #fortune-button {
@@ -38,10 +35,34 @@
     transition: background-color 100ms ease-in-out;
 }
 
+.bi-list {
+    font-size: 2rem;
+}
+
 .bi-arrow-left-short {
     font-size: 4rem;
 }
 
 .bi-house-fill {
     font-size: 3rem;
+}
+
+.bi-hand-index-thumb-fill {
+    font-size: 3rem;
+}
+
+.hidden {
+    transform: translateX(100%);
+    transition: all 100ms ease-in-out;
+}
+
+.active {
+    transform: translateX(0);
+}
+
+.upg-btn {
+    background-color: var(--colorUpgbtn);
+    width: 7rem;
+    height: 5rem;
+    font-size: 1.5rem;
 }

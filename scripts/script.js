@@ -13,12 +13,11 @@ $(document).ready(function() {
 
     // EL for menu icon
     $('#main-menu-icon').on('click', () => {
-        $('#main-menu').show();
+        $('#main-menu').addClass('active');
     });
     //EL for menu back btn
     $('#main-menu-back').on('click', () => {
-        $('#main-menu').hide();
-        console.log("back btn clicked");
+        $('#main-menu').removeClass('active');
     });
 
     //EL for upgrade purchase
@@ -26,7 +25,7 @@ $(document).ready(function() {
 
 // Load game state from local storage or initialize if not present
 function loadGameState() {
-    $('#main-menu').hide();
+    $('#main-menu').removeClass('active');
     // Check if gameState exists in local storage
     if (localStorage.getItem('gameState') == null) {
         // Initialize default game state

@@ -16,23 +16,27 @@
             <h2>Fortunes: <span id="fortune-count">0</span></h2>
             <!-- Menu Button -->
             <div class="d-flex align-items-center" id="main-menu-icon">
-                <h2 class="me-2">Upgrades</h2>
-                <i class="bi bi-list h1"></i>
+                <h2 class="m-1">Upgrades</h2>
+                <i class="bi bi-list"></i>
             </div>
-            <!-- <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-list"></i> Upgrades
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="upgrade-list">
-                    <a class="dropdown-item" href="javascript:void(0)">No upgrades available</a>
-                </ul>
-            </div> -->
         </header>
         <!-- Menu (Hidden until button clicked) -->
-        <div class="w-50 position-absolute min-vh-100 top-0 end-0 bg-sec" id="main-menu">
+        <div class="w-50 position-absolute min-vh-100 top-0 end-0 bg-sec hidden" id="main-menu">
             <div class="d-flex justify-content-between">
-                <i class="bi bi-arrow-left-short h1 m-1" id="main-menu-back"></i>
-                <i class="bi bi-house-fill h1 m-2"></i>
+                <i class="bi bi-arrow-left-short m-1" id="main-menu-back"></i>
+                <i class="bi bi-house-fill m-2"></i>
+            </div>
+            <div class="upgrade upg-bg-color ms-4 d-flex align-items-center p-1 rounded">
+                <div>
+                    <i class="bi bi-hand-index-thumb-fill m-3"></i>
+                    <h1 class="ms-3">x 0</h1>
+                </div>
+                <div class="flex-fill border">
+
+                </div>
+                <a class="upg-btn d-flex justify-content-center align-items-center">
+                    <p class="border">Buy 0.00</p>
+                </a>
             </div>
         </div>
         <!-- Fortune Cookie button-->
