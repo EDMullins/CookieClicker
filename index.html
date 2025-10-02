@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
-    <div class="container-fluid bg-light min-vh-100">
+    <div class="bg-light min-vh-100 d-flex flex-column">
         <header class="d-flex justify-content-between align-items-center p-3">
             <!-- Fortune counter -->
             <h1>Fortunes: <span id="fortune-count">0</span></h1>
             <!-- Menu Button -->
             <div class="d-flex align-items-center" id="main-menu-icon">
-                <h1 class="me-1">Upgrades</h1>
+                <h1 class="pe-1">Upgrades</h1>
                 <i class="bi bi-list"></i>
             </div>
         </header>
@@ -24,7 +24,7 @@
         <div class="w-50 position-absolute min-vh-100 top-0 end-0 bg-sec active" id="main-menu">
             <div class="d-flex justify-content-between">
                 <i class="bi bi-arrow-left-short m-1" id="main-menu-back"></i>
-                <i class="bi bi-house-fill m-2"></i>
+                <i class="bi bi-house-fill m-2" id="sec-menu-btn"></i>
             </div>
             <!-- Upgrade 1 -->
             <div class="upgrade upg-bg-color d-flex flex-column align-items-center rounded mb-3 shadow" id="upgrade-1">
@@ -75,14 +75,39 @@
                 </div>
             </div>
         </div>
+        <!-- Secondary Menu -->
+        <div class="position-absolute bg-light" id="sec-menu">
+            <i class="bi bi-x m-2" id="sec-menu-back"></i>
+            <div class="d-flex h-100">
+                <div class="w-50 d-flex flex-column align-items-center text-center">
+                    <h2 class="m-2">Instructions</h2>
+                    <p class="m-4">Click the fortune cookie to gain a fortune. Buy upgrades in the upgrades menu to increase your fortune production. Have Fun!</p>
+                </div>
+                <div class="w-50">
+                    <div class="w-100 d-flex flex-column align-items-center">
+                        <div class="btn d-flex justify-content-center align-items-center rounded p-1 mb-2 shadow-sm" id="reset-btn">
+                            <p class="m-0">Reset</p>
+                        </div>
+                        <div class="btn d-flex justify-content-center align-items-center rounded p-1 mb-2 shadow-sm" id="cheat-btn">
+                            <p class="m-0">Cheat</p>
+                        </div>
+                        <div class="btn d-flex justify-content-center align-items-center rounded p-1 mb-2 shadow-sm">
+                            <a href="https://github.com/EDMullins" target="_blank" class="text-nowrap">Dev Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Fortune Cookie button-->
         <div class="d-flex justify-content-center mt-5">
             <div class="align-items-center d-flex justify-content-center" id="fortune-button">
-                <img class="w-100" src="assets/fortuneCookie.png" alt="Fortune Icon"/>
+                <img class="w-100" src="assets/fortuneCookie.png" alt="Fortune Icon">
             </div>
         </div>
-        <footer>
-
+        <footer class="d-flex justify-content-around mt-auto bg-sec p-3">
+            <a href="https://wave.webaim.org/report#/https://edmullins.github.io/FortuneClicker/" target="_blank" class="ms-4">Page Accessibility</a>
+            <a href="https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fedmullins.github.io%2FFortuneClicker%2F" target="_blank" class="ms-4">Page Validity</a>
         </footer>
     </div>
     

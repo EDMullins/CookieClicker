@@ -43,22 +43,12 @@ h2 {
     transition: background-color 100ms ease-in-out;
 }
 
-.bi-list {
-    font-size: 3rem;
-    font-weight: bold;
-}
-
-.bi-arrow-left-short {
-    font-size: 4rem;
-    cursor: pointer;
-}
-
-.bi-house-fill {
+.bi-list, .bi-arrow-left-short, .bi-house-fill, .bi-x {
     font-size: 3rem;
     cursor: pointer;
 }
 
-.bi-hand-index-thumb-fill, .bi-clock-fill, .bi-lightning-charge-fill{
+.bi-hand-index-thumb-fill, .bi-clock-fill, .bi-lightning-charge-fill {
     font-size: 3vw;
 }
 
@@ -83,9 +73,35 @@ h2 {
     cursor: pointer;
 }
 
+#sec-menu {
+    top: 0;
+    left: 0;    
+    height: 50%;
+    width: 50%;
+    transform: translate(50%,50%);
+    border: 8px solid var(--colorBorder);
+    border-radius: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--colorTxt);
+}
+
+.btn {
+    background-color: var(--colorSec) !important;
+    width: 50% !important;
+    padding: 1rem !important;
+    margin-bottom: 2rem !important;
+}
+
 @media(max-width: 875px) {
     #main-menu {
         width: 100% !important;
+    }
+    #sec-menu {
+        width: 100% !important;
+        transform: translate(0, 50%);
     }
     h1 {
         font-size: 6vw;
@@ -93,7 +109,7 @@ h2 {
     h2 {
         font-size: 5vw;
     }
-    .bi-hand-index-thumb-fill, .bi-clock-fill, .bi-lightning-charge-fill{
+    .bi-hand-index-thumb-fill, .bi-clock-fill, .bi-lightning-charge-fill, .bi-x{
         font-size: 6vw;
     }
 }

@@ -52,11 +52,11 @@ $(document).ready(function() {
             return;
         }
         // Deduct cost first
-        gs.totalFortunes = gs.totalFortunes - cost;
+        gs.totalFortunes -= cost;
         // Increase per-click and then raise the price for next level
-        gs.upgrades.fortunePerSec = gs.upgrades.fortunePerSec + 1;
+        gs.upgrades.fortunePerSec += 1;
         // New price is previous price multiplied (round to integer)
-        gs.upgrades.fortunePerSecPrice = Math.floor(cost * 2);
+        gs.upgrades.fortunePerSecPrice = cost + 50;
         saveGameState(gs);
         updateUI(gs);
     });
@@ -69,7 +69,7 @@ $(document).ready(function() {
                 return;
             }
             // Deduct cost first
-            gs.totalFortunes = gs.totalFortunes - cost;
+            gs.totalFortunes -= cost;
             //owned upgrades are true
             gs.upgrades.crackFortune = true;
         }
@@ -77,17 +77,38 @@ $(document).ready(function() {
         updateUI(gs);
     });
 
-    //Time loop for upgrade 2
-    setInterval(function() {
-        gs.totalFortunes += gs.upgrades.fortunePerSec;
+    // Second Menu EL
+    $('#sec-menu-btn').on('click', () => {
+        $('#sec-menu').toggle();
+    });
+    $('#sec-menu-back').on('click', () => {
+        $('#sec-menu').toggle();
+    });
+    //Reset button EL
+    $('#reset-btn').on('click', () => {
+        localStorage.removeItem('gameState');
+        location.reload(); // reload page to reinit state
+    });
+    $('#cheat-btn').on('click', () => {
+        gs.totalFortunes += 100000000;
         saveGameState(gs);
         updateUI(gs);
+    });
+
+    //Time loop for upgrade 2
+    setInterval(function() {
+        if (gs) {
+            gs.totalFortunes += gs.upgrades.fortunePerSec;
+            saveGameState(gs);
+            updateUI(gs);
+        }
     }, 1000);
 });
 
 // Load game state from local storage or initialize if not present
 function loadGameState() {
     $('#main-menu').removeClass('active');
+    $('#sec-menu').hide();
     // Check if gameState exists in local storage
     if (localStorage.getItem('gameState') == null) {
         // Initialize default game state
