@@ -27,6 +27,14 @@
     overflow: hidden;
 }
 
+h1 {
+    font-size: 3vw;
+}
+
+h2 {
+    font-size: 2vw;
+}
+
 #fortune-button {
     height: 25rem;
     width: 25rem;
@@ -51,7 +59,7 @@
 }
 
 .bi-hand-index-thumb-fill, .bi-clock-fill, .bi-lightning-charge-fill{
-    font-size: 3rem;
+    font-size: 3vw;
 }
 
 #main-menu-icon {
@@ -75,11 +83,17 @@
     cursor: pointer;
 }
 
-.upgrade {
-    transform: skew(15deg);
-    width: 100%;
-}
-
-.upgrade div {
-    transform: skew(-15deg);
+@media(max-width: 875px) {
+    #main-menu {
+        width: 100% !important;
+    }
+    h1 {
+        font-size: 6vw;
+    }
+    h2 {
+        font-size: 5vw;
+    }
+    .bi-hand-index-thumb-fill, .bi-clock-fill, .bi-lightning-charge-fill{
+        font-size: 6vw;
+    }
 }

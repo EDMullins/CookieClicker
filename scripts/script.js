@@ -6,7 +6,13 @@ $(document).ready(function() {
 
     // event listener for the cookie button
     $('#fortune-button').on('click', () => {
-        clickFortune(gs);
+        console.log('Fortune clicked');
+        if (gs != null && gs.upgrades != null) {
+            gs.totalFortunes += gs.upgrades.fortunePerClick;
+        }
+        else {
+            console.error('Game state or upgrades not initialized properly.');
+        }
         saveGameState(gs);
         updateUI(gs);
     });
@@ -22,6 +28,61 @@ $(document).ready(function() {
     });
 
     //EL for upgrade purchase
+    $('#upg-btn-1').on('click', () => {
+        //Use the current price as the cost
+        const cost = gs.upgrades.fortunePerClickPrice;
+        if (gs.totalFortunes < cost) {
+            console.log('Not enough fortunes to purchase upgrade');
+            return;
+        }
+        // Deduct cost first
+        gs.totalFortunes = gs.totalFortunes - cost;
+        // Increase per-click and then raise the price for next level
+        gs.upgrades.fortunePerClick = gs.upgrades.fortunePerClick + 1;
+        // New price is previous price multiplied (round to integer)
+        gs.upgrades.fortunePerClickPrice = Math.floor(cost * 1.5);
+        saveGameState(gs);
+        updateUI(gs);
+    });
+    $('#upg-btn-2').on('click', () => {
+        //Use the current price as the cost
+        const cost = Number(gs.upgrades.fortunePerSecPrice);
+        if (gs.totalFortunes < cost) {
+            console.log('Not enough fortunes to purchase upgrade');
+            return;
+        }
+        // Deduct cost first
+        gs.totalFortunes = gs.totalFortunes - cost;
+        // Increase per-click and then raise the price for next level
+        gs.upgrades.fortunePerSec = gs.upgrades.fortunePerSec + 1;
+        // New price is previous price multiplied (round to integer)
+        gs.upgrades.fortunePerSecPrice = Math.floor(cost * 2);
+        saveGameState(gs);
+        updateUI(gs);
+    });
+    $('#upg-btn-3').on('click', () => {
+        //Use the current price as the cost
+        const cost = Number(gs.upgrades.crackFortunePrice);
+        if (gs.upgrades.crackFortune === false) {
+            if (gs.totalFortunes < cost) {
+                console.log('Not enough fortunes to purchase upgrade');
+                return;
+            }
+            // Deduct cost first
+            gs.totalFortunes = gs.totalFortunes - cost;
+            //owned upgrades are true
+            gs.upgrades.crackFortune = true;
+        }
+        saveGameState(gs);
+        updateUI(gs);
+    });
+
+    //Time loop for upgrade 2
+    setInterval(function() {
+        gs.totalFortunes += gs.upgrades.fortunePerSec;
+        saveGameState(gs);
+        updateUI(gs);
+    }, 1000);
 });
 
 // Load game state from local storage or initialize if not present
@@ -35,8 +96,10 @@ function loadGameState() {
             upgrades: {
                 fortunePerClick: 1,
                 fortunePerClickPrice: 10,
-                fortunePerSecond: 0,
-                crackFortune: false
+                fortunePerSec: 0,
+                fortunePerSecPrice: 100,
+                crackFortune: false,
+                crackFortunePrice: 10000
             }
         };
         // JSON method turns the object back into a string for local storage
@@ -53,57 +116,28 @@ function loadGameState() {
     }
 }
 
-function clickFortune(gs) {
-    console.log('Fortune button clicked');
-    if (gs != null && gs.upgrades != null) {
-        gs.totalFortunes += gs.upgrades.fortunePerClick;
-    }
-    else {
-        console.error('Game state or upgrades not initialized properly.');
-    }
-}
-
 function saveGameState(gs) {
     localStorage.setItem('gameState', JSON.stringify(gs));
     console.log('Game state saved:', gs);
 }
 
 function updateUI(gs) {
-    const fortuneCount = document.getElementById('fortune-count');
-    if (fortuneCount) {
-        fortuneCount.textContent = gs.totalFortunes;
+    //fortune count
+    $('#fortune-count').text(gs.totalFortunes);
+    //upgrade UI
+    $('#upgrade-1 .upgCount').text(gs.upgrades.fortunePerClick);
+    $('#upgrade-1 .upgPrice').text(gs.upgrades.fortunePerClickPrice);
+    
+    $('#upgrade-2 .upgCount').text(gs.upgrades.fortunePerSec);
+    $('#upgrade-2 .upgPrice').text(gs.upgrades.fortunePerSecPrice);
+
+    if (gs.upgrades.crackFortune === true) {
+        $('#upgrade-3 .upgCount').text("1/1");
+        $('#upgrade-3 .upgPrice').text("Sold Out");
     }
-    // // Update upgrade UI elements here
-    // const upgradeList = document.getElementById('upgrade-list');
-    // if (upgradeList) {
-    //     upgradeList.innerHTML = ''; // Clear existing upgrades
-    //     // Upgrade for fortune per click
-    //     if (gs.upgrades.fortunePerClick < 20) {
-    //         // Create upgrade item html element
-    //         const upgradeItem = document.createElement('a');
-    //         upgradeItem.className = 'dropdown-item';
-    //         upgradeItem.href = 'javascript:void(0)';
-    //         upgradeItem.textContent = `Fortune Per Click Current Level: ${gs.upgrades.fortunePerClick} - Cost: ${gs.upgrades.fortunePerClickPrice}`;
-    //         // event listener for upgrade click
-    //         upgradeItem.addEventListener('click', () => {
-    //             // Use the current price as the cost
-    //             const cost = Number(gs.upgrades.fortunePerClickPrice);
-    //             if (gs.totalFortunes < cost) {
-    //                 console.log('Not enough fortunes to purchase upgrade');
-    //                 return;
-    //             }
-    //             // Deduct cost first
-    //             gs.totalFortunes = Number(gs.totalFortunes) - cost;
-    //             // Increase per-click and then raise the price for next level
-    //             gs.upgrades.fortunePerClick = Number(gs.upgrades.fortunePerClick) + 1;
-    //             // New price is previous price multiplied (round to integer)
-    //             gs.upgrades.fortunePerClickPrice = Math.floor(cost * 2);
-    //             saveGameState(gs);
-    //             updateUI(gs);
-    //         });
-    //         upgradeList.appendChild(upgradeItem);
-    //     }
-    //     // TODO: Add more upgrades
-    //}
+    else {
+        $('#upgrade-3 .upgCount').text("0/1");
+        $('#upgrade-3 .upgPrice').text(gs.upgrades.crackFortunePrice);
+    }
     console.log('UI updated');
 }

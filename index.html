@@ -13,10 +13,10 @@
     <div class="container-fluid bg-light min-vh-100">
         <header class="d-flex justify-content-between align-items-center p-3">
             <!-- Fortune counter -->
-            <h2>Fortunes: <span id="fortune-count">0</span></h2>
+            <h1>Fortunes: <span id="fortune-count">0</span></h1>
             <!-- Menu Button -->
             <div class="d-flex align-items-center" id="main-menu-icon">
-                <h2 class="me-1">Upgrades</h2>
+                <h1 class="me-1">Upgrades</h1>
                 <i class="bi bi-list"></i>
             </div>
         </header>
@@ -26,43 +26,52 @@
                 <i class="bi bi-arrow-left-short m-1" id="main-menu-back"></i>
                 <i class="bi bi-house-fill m-2"></i>
             </div>
-            <div class="upgrade upg-bg-color ms-5 d-flex align-items-center pe-3 rounded mb-3">
-                <div class="ms-4">
-                    <i class="bi bi-hand-index-thumb-fill m-3"></i>
-                    <h1 class="ms-3">x <span id="upgCount">0</span></h1>
+            <!-- Upgrade 1 -->
+            <div class="upgrade upg-bg-color d-flex flex-column align-items-center rounded mb-3 shadow" id="upgrade-1">
+                <div class="w-100 d-flex flex-row align-items-center">
+                    <div class="ms-4 me-4 d-flex align-items-center">
+                        <i class="bi bi-hand-index-thumb-fill m-3"></i>
+                        <h2 class="ms-1 text-nowrap">x <span class="upgCount">0</span></h2>
+                    </div>
+                    <div class="ms-4">
+                        <h2>Fortune Per Click</h2>
+                        <p>Increases the fortunes per click +1</p>
+                    </div>
                 </div>
-                <div class="flex-fill ms-2">
-                    <h1>Fortune Per Click</h1>
-                    <p>Increases the fortunes per click +1</p>
-                </div>
-                <div class="upg-btn d-flex justify-content-center align-items-center me-5 rounded mb-3">
-                    <p class="m-0">Buy<br><span id="upgPrice">0.00</span></p>
-                </div>
-            </div>
-            <div class="upgrade upg-bg-color ms-5 d-flex align-items-center pe-3 rounded mb-3">
-                <div class="ms-4">
-                    <i class="bi bi-clock-fill m-3"></i>
-                    <h1 class="ms-3">x <span id="upgCount">0</span></h1>
-                </div>
-                <div class="flex-fill ms-2">
-                    <h1>Fortune Per Second</h1>
-                    <p>Increases the fortunes per second +1</p>
-                </div>
-                <div class="upg-btn d-flex justify-content-center align-items-center me-5 rounded">
-                    <p class="m-0">Buy<br><span id="upgPrice">0.00</span></p>
+                <div class="w-50 upg-btn d-flex justify-content-center align-items-center rounded p-1 mb-2 shadow-sm" id="upg-btn-1">
+                    <p class="m-0">Buy <span class="upgPrice">0</span></p>
                 </div>
             </div>
-            <div class="upgrade upg-bg-color ms-5 d-flex align-items-center pe-3 rounded">
-                <div class="ms-4">
-                    <i class="bi bi-lightning-charge-fill m-3"></i>
-                    <h1 class="ms-3">x <span id="upgCount">0</span></h1>
+            <!-- Upgrade 2 -->
+            <div class="upgrade upg-bg-color d-flex flex-column align-items-center rounded mb-3 shadow" id="upgrade-2">
+                <div class="w-100 d-flex flex-row align-items-center">
+                    <div class="ms-4 me-4 d-flex align-items-center">
+                        <i class="bi bi-clock-fill m-3"></i>
+                        <h2 class="ms-1 text-nowrap">x <span class="upgCount">0</span></h2>
+                    </div>
+                    <div class="ms-4">
+                        <h2>Fortune Per Second</h2>
+                        <p>Increases the fortunes per click +1</p>
+                    </div>
                 </div>
-                <div class="flex-fill ms-2">
-                    <h1>Fortune Cracker</h1>
-                    <p class="upg-desc">Ability: After 1000 clicks 2x fortunes for 30 seconds</p>
+                <div class="w-50 upg-btn d-flex justify-content-center align-items-center rounded p-1 mb-2 shadow-sm" id="upg-btn-2">
+                    <p class="m-0">Buy <span class="upgPrice">0</span></p>
                 </div>
-                <div class="upg-btn d-flex justify-content-center align-items-center me-5 rounded">
-                    <p class="m-0">Buy<br><span id="upgPrice">0.00</span></p>
+            </div>
+            <!-- Upgrade 3 -->
+            <div class="upgrade upg-bg-color d-flex flex-column align-items-center rounded mb-3 shadow" id="upgrade-3">
+                <div class="w-100 d-flex flex-row align-items-center">
+                    <div class="ms-4 me-4 d-flex align-items-center">
+                        <i class="bi bi-lightning-charge-fill m-3"></i>
+                        <h2 class="ms-1 text-nowrap upgCount">0</span></h2>
+                    </div>
+                    <div class="ms-4">
+                        <h2>Fortune Cracker</h2>
+                        <p>Increases the fortunes per click +1</p>
+                    </div>
+                </div>
+                <div class="w-50 upg-btn d-flex justify-content-center align-items-center rounded p-1 mb-2 shadow-sm" id="upg-btn-3">
+                    <p class="m-0">Buy <span class="upgPrice">0</span></p>
                 </div>
             </div>
         </div>
