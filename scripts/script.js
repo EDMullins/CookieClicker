@@ -3,6 +3,16 @@ $(document).ready(function() {
     // load game state and update UI
     const gs = loadGameState();
     updateUI(gs);
+    $('#main-menu').removeClass('active');
+    $('#sec-menu').hide();
+    $('#gamble-menu').hide();
+    $('#bar').css('width', gs.barWidth + '%');
+    if (gs.upgrades.crackFortune === false) {
+        $('#bar').hide();
+    }
+    else {
+        $('#bar').show();
+    }
 
     // event listener for the cookie button
     $('#fortune-button').on('click', () => {
@@ -12,6 +22,20 @@ $(document).ready(function() {
         }
         else {
             console.error('Game state or upgrades not initialized properly.');
+        }
+
+        if (gs.upgrades.crackFortune === true) {
+            //gets the value of width
+            let width = parseInt(gs.barWidth);
+            if (width < 100) {
+                let newWidth = width + 1;
+                gs.barWidth = parseInt(gs.barWidth) + 1;
+                $('#bar').css('width', newWidth + '%');
+                console.log('new width: ', newWidth)
+            }
+            else if (gs.barWidth >= 100) {
+                //TODO: After bar reaches 100 I want to give a 30 second period where clicks are worth 2x.
+            }
         }
         saveGameState(gs);
         updateUI(gs);
@@ -72,6 +96,7 @@ $(document).ready(function() {
             gs.totalFortunes -= cost;
             //owned upgrades are true
             gs.upgrades.crackFortune = true;
+            $('#bar').show();
         }
         saveGameState(gs);
         updateUI(gs);
@@ -89,10 +114,18 @@ $(document).ready(function() {
         localStorage.removeItem('gameState');
         location.reload(); // reload page to reinit state
     });
+    //cheat EL
     $('#cheat-btn').on('click', () => {
         gs.totalFortunes += 100000000;
         saveGameState(gs);
         updateUI(gs);
+    });
+    //Invite EL
+    $('#gamble-btn').on('click', () => {
+        $('#gamble-menu').toggle();
+    });
+    $('#gamble-back').on('click', () => {
+        $('#gamble-menu').toggle();
     });
 
     //Time loop for upgrade 2
@@ -107,20 +140,20 @@ $(document).ready(function() {
 
 // Load game state from local storage or initialize if not present
 function loadGameState() {
-    $('#main-menu').removeClass('active');
-    $('#sec-menu').hide();
     // Check if gameState exists in local storage
     if (localStorage.getItem('gameState') == null) {
         // Initialize default game state
         const defaultState = {
             totalFortunes: 0,
+            doubleClick: false,
+            barWidth: 0.0,
             upgrades: {
                 fortunePerClick: 1,
                 fortunePerClickPrice: 10,
                 fortunePerSec: 0,
                 fortunePerSecPrice: 100,
                 crackFortune: false,
-                crackFortunePrice: 10000
+                crackFortunePrice: 10000,
             }
         };
         // JSON method turns the object back into a string for local storage
