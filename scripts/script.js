@@ -17,24 +17,55 @@ $(document).ready(function() {
     // event listener for the cookie button
     $('#fortune-button').on('click', () => {
         console.log('Fortune clicked');
+        //bounce when clicked
+        $('#fortune-button').animate({
+            marginTop: "+=5px"
+        }, 50, () => {
+            $('#fortune-button').animate({
+                marginTop: "-=5px"
+            }, 50);
+        });
+        //main click addition
         if (gs != null && gs.upgrades != null) {
-            gs.totalFortunes += gs.upgrades.fortunePerClick;
+            if (gs.doubleClick === true) {
+                gs.totalFortunes += gs.upgrades.fortunePerClick * 2;
+            }
+            else {
+                gs.totalFortunes += gs.upgrades.fortunePerClick;
+            }
         }
         else {
             console.error('Game state or upgrades not initialized properly.');
         }
-
+        //for progress bar
         if (gs.upgrades.crackFortune === true) {
             //gets the value of width
             let width = parseInt(gs.barWidth);
+            //if not full then fill bar
             if (width < 100) {
                 let newWidth = width + 1;
                 gs.barWidth = parseInt(gs.barWidth) + 1;
                 $('#bar').css('width', newWidth + '%');
-                console.log('new width: ', newWidth)
             }
+            //if full then check if we already activated doubleClick
             else if (gs.barWidth >= 100) {
-                //TODO: After bar reaches 100 I want to give a 30 second period where clicks are worth 2x.
+                if (gs.doubleClick != true) {
+                    gs.doubleClick = true;
+                    $('#bar').text('Double Fortunes');
+                    $('#fortune-img').attr('src', 'assets/crackedFortune.png');
+                    $('#fortune-button').css('width', '50rem');
+                    
+                    //for 30 seconds doubleClick is true
+                    setTimeout(() => {
+                        gs.doubleClick = false;
+                        gs.barWidth = 0;
+                        $('#bar').text('');
+                        $('#fortune-img').attr('src', 'assets/fortuneCookie.png');
+                        $('#fortune-button').css('width', '25rem');
+                        console.log('Double fortune bonus ended.');
+                    }, 30000);
+                    console.log(gs.barWidth);
+                }
             }
         }
         saveGameState(gs);
@@ -62,9 +93,9 @@ $(document).ready(function() {
         // Deduct cost first
         gs.totalFortunes = gs.totalFortunes - cost;
         // Increase per-click and then raise the price for next level
-        gs.upgrades.fortunePerClick = gs.upgrades.fortunePerClick + 1;
+        gs.upgrades.fortunePerClick += 1;
         // New price is previous price multiplied (round to integer)
-        gs.upgrades.fortunePerClickPrice = Math.floor(cost * 1.5);
+        gs.upgrades.fortunePerClickPrice = Math.floor(cost + 50);
         saveGameState(gs);
         updateUI(gs);
     });
@@ -80,7 +111,7 @@ $(document).ready(function() {
         // Increase per-click and then raise the price for next level
         gs.upgrades.fortunePerSec += 1;
         // New price is previous price multiplied (round to integer)
-        gs.upgrades.fortunePerSecPrice = cost + 50;
+        gs.upgrades.fortunePerSecPrice = Math.floor(cost * 1.5);
         saveGameState(gs);
         updateUI(gs);
     });
@@ -127,11 +158,36 @@ $(document).ready(function() {
     $('#gamble-back').on('click', () => {
         $('#gamble-menu').toggle();
     });
+    $('form').submit(function(event) {
+        event.preventDefault();
+        if (gs.totalFortunes > 10000) {
+            let form = $('form').serializeArray();
+            if (form[0].value === 'yes') {
+                let rand = Math.random();
+                gs.totalFortunes -= 10000;
+
+                if (rand <= .50) {
+                    gs.upgrades.fortunePerClick += 10;
+                    console.log('+10 FPC');
+                }
+                else if (rand <= .85) {
+                    gs.totalFortunes =Math.floor(gs.totalFortunes / 2);
+                    console.log('you lost 1/2 fortunes');
+                }
+                else {
+                    gs.totalFortunes *= 2;
+                    console.log('x2 fortunes');
+                }
+            }
+            console.log('form submitted');
+        }
+        $('#gamble-menu').toggle();
+    });
 
     //Time loop for upgrade 2
     setInterval(function() {
         if (gs) {
-            gs.totalFortunes += gs.upgrades.fortunePerSec;
+            gs.totalFortunes += gs.upgrades.fortunePerSec * gs.upgrades.fortunePerClick;
             saveGameState(gs);
             updateUI(gs);
         }
@@ -149,7 +205,7 @@ function loadGameState() {
             barWidth: 0.0,
             upgrades: {
                 fortunePerClick: 1,
-                fortunePerClickPrice: 10,
+                fortunePerClickPrice: 50,
                 fortunePerSec: 0,
                 fortunePerSecPrice: 100,
                 crackFortune: false,
@@ -193,5 +249,4 @@ function updateUI(gs) {
         $('#upgrade-3 .upgCount').text("0/1");
         $('#upgrade-3 .upgPrice').text(gs.upgrades.crackFortunePrice);
     }
-    console.log('UI updated');
 }

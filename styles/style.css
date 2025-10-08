@@ -49,7 +49,6 @@ a {
 }
 
 #fortune-button {
-    height: 25rem;
     width: 25rem;
     padding: 1rem;
     border-radius: 50%;
@@ -121,6 +120,7 @@ a {
 #progress {
     margin-top: 12rem;
     width: 96%;
+    border-radius: 15px;
 }
 #bar {
     width: 0%;
